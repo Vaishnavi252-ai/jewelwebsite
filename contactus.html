@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CLAUDIA ALVES JEWELS</title>
+    <link rel="stylesheet" href="style.css" type="text/css" />
+    <link rel="icon" href="jewelimages/logo3.png" type="image/png"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css">
+  </head>
+  <body>
+  <div class="container">
+    <style>
+        .container{
+            max-width: 1800px;
+            margin: auto;
+            background-color: black;
+            padding: 0px;
+        }
+    </style>
+    <div class="navbar">
+      <div class="logo">
+        <a href="#"><img src="jewelimages/logo3.png" alt="" width="150"></a>
+      </div>
+        <nav>
+          <ul id="MenuItems">
+            <img src="jewelimages/close.png" class="close" onclick="togglemenu()">
+            <li><a href="home.html">Home</a></li>
+            <li><a href="products.html">Shop</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a class="active" href="contactus.html">ContactUs</a></li>
+          </ul>
+        </nav> 
+        <img src="jewelimages/menu (1).png" class="menu" onclick="togglemenu()">
+        <a href="Cart.html"><img src="jewelimages/shopping-bag (1).png" width="30px" height="30px"><span>0</span></a>
+      </div>
+    </div>
+  </div>
+<div class="page-header-3">
+    <h2>#ContactUs</h2>
+    <p>To Receive such amazing jewellery and offers keep in touch!!</p>
+</div>
+
+<div class="contactdetail">
+  <div class="detail">
+    <span>GET IN TOUCH</span>
+    <h2>Visit one of our agency locations or contact us today!!</h2>
+    <h3>Head Office</h3>
+  <div> 
+    <img src="jewelimages/address (1).png">
+    <p>56 glassford street glasgow G1 1UL Mumbai</p>
+  </div>
+  <div>
+    <img src="jewelimages/mail (1).png">
+    <p>www.claudiaalves.com</p>
+  </div>
+  <div>
+    <img src="jewelimages/telephone.png">
+    <p>9753280764</p>
+  </div>
+  <div>
+    <img src="jewelimages/info (1).png">
+    <p>Monday to Sunday: 9.00am to 16.pm</p>
+  </div>
+  </div>
+  <div class="detail">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.795366859993!2d72.8582927749773!3d19.072732682131086!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c96c440c0d51%3A0x89f533b9650af7cb!2sUniversity%20of%20Mumbai!5e0!3m2!1sen!2sin!4v1706887904781!5m2!1sen!2sin" 
+    width="350" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </div>
+</div>
+
+<div class="Form-detail">
+  <form actions="">
+    <span>LEAVE A MESSAGE</span>
+    <h2>We love to hear from you</h2>
+    <input type="text" placeholder="Your Name">
+    <input type="text" placeholder="E-mail">
+    <input type="text" placeholder="Subject">
+    <textarea name="" id="" cols="30s" rows="10" placeholder="Your Messages"></textarea>
+    <button class="btn">SUBMIT</button>
+  </form>
+
+  <div class="people">
+    <div>
+      <img src="jewelimages/vaishu.jpg">
+      <p><span>Vaishanvi Misal</span> President <br> Office no.: + 000 123 000 77 88 <br> Email: misalvaishanvi33@gmail.com</p>
+    </div>
+    <div>
+      <img src="">
+      <p><span>Vaishanvi Misal</span> Chief Operations Officer <br> Office no.: + 000 123 000 77 88 <br> Email: misalvaishanvi33@gmail.com</p>
+    </div>
+    <div>
+      <img src="">
+      <p><span>Vaishanvi Misal</span> Senior Marketing Manager <br> Office no.: + 000 123 000 77 88 <br> Email: misalvaishanvi33@gmail.com</p>
+    </div>
+  </div>
+</div>
+  
+
+  <div class="footer">
+    <div class="footer-col-1">
+      <img src="jewelimages/logo3.png" width="100px">
+      <p>Our Purpose Is To Sustainably Make the Pleasure and Benefits of Sports Accessible to the Many.</p>
+    </div>
+    <div class="footer-col-2">
+      <h3>Follow US</h3>
+      <ul>
+        <li>Facebook</li>
+        <li>Twitter</li>
+        <li>Instagram</li>
+        <li>YouTube</li>
+      </ul>
+    </div>
+</div>
+<hr>
+<p  class="Copyright">Copyright 2023 Designed by: VAISHNAVI MISAL</p>
+
+<script>
+
+  var MenuItems = document.getElementById("MenuItems");
+
+  MenuItems.style.maxHeight = "0px";
+
+  function togglemenu(){
+
+    if(MenuItems.style.maxHeight == "0px")
+    {
+      MenuItems.style.maxHeight = "130px";
+    }
+    else{
+      MenuItems.style.maxHeight = "0px";
+    }
+  }
+</script>
+
+
+  </body>
+</html>

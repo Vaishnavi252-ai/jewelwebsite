@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CLAUDIA ALVES JEWELS</title>
+    <link rel="stylesheet" href="style.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css">
+  </head>
+  <body>
+  <div class="container">
+    <style>
+        .container{
+            max-width: 1800px;
+            margin: auto;
+            background-color: black;
+            padding: 0px;
+        }
+
+    </style>
+    <div class="navbar">
+      <div class="logo">
+        <a href="#"><img src="jewelimages/logo3.png" alt="" width="150"></a>
+      </div>
+        <nav>
+          <ul id="MenuItems">
+            <img src="jewelimages/close.png" class="close" onclick="togglemenu()">
+            <li><a href="home.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contactus.html">ContactUs</a></li>
+            <img src="jewelimages/menu (1).png" class="menu" onclick="togglemenu()" style="overflow-y:scroll;height:400px;">
+            <li><a href="Cart.html"><img src="jewelimages/shopping-bag (1).png" width="30px" height="30px"></a></li>
+          </ul>
+        </nav> 
+      </div>
+    </div>
+  </div>
+
+
+<div class="page-header-3">
+  <h2>#let's_talk</h2>
+  <p>LEAVE A MESSAGE.We love to hear from you!!</p>
+</div>
+
+<!----------cart items details---------->
+
+<div id="cart" class="section-p1">
+  <table width="100%">
+    <thead>
+      <tr>
+        <td>Remove</td>
+        <td>Product</td>
+        <td>Name</td>
+        <td>Price</td>
+        <td>Quantity</td>
+        <td>Subtotal</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><img src="jewelimages/minus-button.png"></td>
+        <td><img src="jewelimages/p (24).jpg" width="90px"></td>
+        <td>Diamond Earring</td>
+        <td>120$</td>
+        <td><input type="number" value="1"></td>
+        <td>120$</td>
+      </tr>
+      <tr>
+        <td><img src="jewelimages/minus-button.png"></td>
+        <td><img src="jewelimages/p (20).jpg" width="90px"></td>
+        <td>Diamond Necklace</td>
+        <td>220$</td>
+        <td><input type="number" value="1"></td>
+        <td>220$</td>
+      </tr>
+      <tr>
+        <td><img src="jewelimages/minus-button.png"></td>
+        <td><img src="jewelimages/p (9).jpg" width="90px"></td>
+        <td>Dangling Bracelet</td>
+        <td>70$</td>
+        <td><input type="number" value="1"></td>
+        <td>70$</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+  
+    
+    <!-----------footer------------->
+
+    <div class="footer">
+          <div class="footer-col-1">
+            <img src="jewelimages/logo3.png" width="100px">
+            <p>Our Purpose Is To Sustainably Make the Pleasure and Benefits of Sports Accessible to the Many.</p>
+          </div>
+          <div class="footer-col-2">
+            <h3>Follow US</h3>
+            <ul>
+              <li>Facebook</li>
+              <li>Twitter</li>
+              <li>Instagram</li>
+              <li>YouTube</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <hr>
+    <p class="Copyright">Copyright 2023 Designed by: VAISHNAVI MISAL</p>
+  
+    <script>
+
+      var MenuItems = document.getElementById("MenuItems");
+
+      MenuItems.style.maxHeight = "0px";
+
+      function togglemenu(){
+
+        if(MenuItems.style.maxHeight == "0px")
+        {
+          MenuItems.style.maxHeight = "130px";
+        }
+        else{
+          MenuItems.style.maxHeight = "0px";
+        }
+      }
+    </script>
+
+   
+  </body>
+</html>

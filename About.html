@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CLAUDIA ALVES JEWELS</title>
+    <link rel="stylesheet" href="style.css" type="text/css" />
+    <link rel="icon" href="jewelimages/logo3.png" type="image/png"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css">
+  </head>
+  <body>
+  <div class="container">
+    <style>
+        .container{
+            max-width: 1800px;
+            margin: auto;
+            background-color: black;
+            padding: 0px;
+        }
+    </style>
+    <div class="navbar">
+      <div class="logo">
+        <a href="Cart.html"><img src="jewelimages/logo3.png" alt="" width="150"></a>
+      </div>
+        <nav>
+          <ul id="MenuItems">
+            <img src="jewelimages/close.png" class="close" onclick="togglemenu()">
+            <li><a href="home.html">Home</a></li>
+            <li><a href="products.html">Shop</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a class="active" href="about.html">About</a></li>
+            <li><a href="contactus.html">ContactUs</a></li>
+          </ul>
+        </nav> 
+        <img src="jewelimages/menu (1).png" class="menu" onclick="togglemenu()">
+        <a href="#"><img src="jewelimages/shopping-bag (1).png" width="30px" height="30px"><span>0</span></a>
+      </div>
+    </div>
+  </div>
+<div class="page-header-2"></div>
+  <div class="about">
+    <img src="jewelimages/about.png" width="450" height="450">
+    <div>
+      <h2>OUR STORY</h2>
+        <p>Our inspiration comes from the jewellery makers of the Golden Horn, also known as Halic. The artisans of the Golden Horn 
+            during the Constantinople era were renowned for their exceptional skill and craftsmanship in the Byzantine era, a period 
+            known for producing exquisite jewellery. These artisans were celebrated for their ability to incorporate intricate designs 
+            and techniques into their work. 
+        </p>
+
+            <abbr title="">Create stunning images with as much or as little control as you like thanks to a choice of basic and creative modes.</abbr>
+
+            <br><br>
+
+            <marquee bgcolor="#ccc" loop="-1" scrollment="5" width="100%">Create stunning images with as much or as little control as you like thanks 
+                to a choice of basic and creative
+            </marquee>
+    </div>
+  </div>
+
+  <div>
+    <div class="about1">
+      <div class="col-2-1">
+        <h2>MISSION</h2>
+        <p>
+          To give every customer much more than what he/she asks for in terms of quality, selection, value for money and customer service,<br> by 
+          understanding local tastes and preferences and innovating constantly to eventually provide an unmatched experience in Indian jewellery
+          shopping.
+        </p>
+        <abbr title="">Create stunning images with as much or as little control as you like thanks to a choice of basic and creative modes.</abbr>
+
+        <br><br>
+
+        <marquee bgcolor="#ccc" loop="-1" scrollment="5" width="100%">Create stunning images with as much or as little control as you like thanks 
+            to a choice of basic and creative
+        </marquee>
+      </div>
+      <div class="col-2-1">
+        <img src="jewelimages/jewel5.jpg" width="500px" height="500px"/>
+      </div>
+    </div>
+  </div>
+
+   <!---Services--->
+
+   <div class="Services">
+    <div class="smallcontainer">
+      <div class="row-1">
+        <div class="col-3">
+          <img
+            src="jewelimages/worldwide-shipping.png"
+            width="75px"
+            height="75px"
+          />
+          <h2>Worldwide Shipping</h2>
+          <p>
+            From our workshop to your doorstep,<br />experience the elegance
+            of global delivery.
+          </p>
+        </div>
+        <div class="col-3">
+          <img src="jewelimages/cashback.png" width="75px" height="75px" />
+          <h2>100% Money Back</h2>
+          <p>
+            Discover the sparkle with every purchase!<br />Enjoy exclusive
+            cashback service on your favourite jewelry.
+          </p>
+        </div>
+        <div class="col-3">
+          <img
+            src="jewelimages/credit-card (1).png"
+            width="75px"
+            height="75px"
+          />
+          <h2>Secure Payment</h2>
+          <p>
+            Shop with confidence! Your peace of<br />
+            mind is as precious as our gems.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-col-1">
+      <img src="jewelimages/logo3.png" width="100px">
+      <p>Our Purpose Is To Sustainably Make the Pleasure and Benefits of Sports Accessible to the Many.</p>
+    </div>
+    <div class="footer-col-2">
+      <h3>Follow US</h3>
+      <ul>
+        <li>Facebook</li>
+        <li>Twitter</li>
+        <li>Instagram</li>
+        <li>YouTube</li>
+      </ul>
+    </div>
+</div>
+<hr>
+<p  class="Copyright">Copyright 2023 Designed by: VAISHNAVI MISAL</p>
+
+<script>
+
+  var MenuItems = document.getElementById("MenuItems");
+
+  MenuItems.style.maxHeight = "0px";
+
+  function togglemenu(){
+
+    if(MenuItems.style.maxHeight == "0px")
+    {
+      MenuItems.style.maxHeight = "130px";
+    }
+    else{
+      MenuItems.style.maxHeight = "0px";
+    }
+  }
+</script>
+
+
+  </body>
+</html>
