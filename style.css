@@ -360,6 +360,9 @@ select{
   text-align:end;
   padding: 100px;
 }
+
+/*--------blog page----------*/
+
 .page-header-1{
   max-width: 1800px;
   height: 50vh;
@@ -391,6 +394,10 @@ select{
 .blog-details{
   padding-left: 60px;
 }
+
+/*--------about page--------*/
+
+
 .page-header-2{
   max-width: 1600px;
   height: 50vh;
@@ -418,6 +425,218 @@ select{
   padding: -150px;
   margin-left: 30px;
 }
+
+/*--------Account page----------*/
+
+.container1{
+  margin-top: -30px;
+  background-color: whitesmoke;
+  border-radius: 50px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+  position: relative;
+  overflow: hidden;
+  max-width: 1800px;
+  min-height: 500px;
+}
+
+.container1 p{
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.3px;
+  margin: 20px 0;
+}
+
+.container1 span{
+  font-size: 12px;
+}
+
+.container1 a{
+  color: #333;
+  font-size: 13px;
+  text-decoration: none;
+  margin: 15px 0 10px;
+}
+
+.container1 button{
+  background-color: black;
+  color: goldenrod;
+  font-size: 12px;
+  padding: 10px 45px;
+  border: 1px solid black;
+  border-radius: 40px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.container1 button.hidden{
+  background-color: black;
+  
+}
+
+.container1 form{
+  background-color: whitesmoke;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 40px;
+  height: 100%;
+}
+
+.container1 input{
+  background-color: #e1dede;
+  border: none;
+  margin: 8px 0;
+  padding: 10px 15px;
+  font-size: 13px;
+  border-radius: 8px;
+  width: 100%;
+  outline: none;
+}
+
+.form-container{
+  position: absolute;
+  top: 0;
+  height: 100%;
+  transition: all 0.6s ease-in-out;
+}
+
+.sign-in{
+  left: 0;
+  width: 50%;
+  z-index: 2;
+}
+
+.container1.active .sign-in{
+  transform: translateX(100%);
+}
+
+.sign-up{
+  left: 0;
+  width: 50%;
+  opacity: 0;
+  z-index: 1;
+}
+
+.container1.active .sign-up{
+  transform: translateX(100%);
+  opacity: 1;
+  z-index: 5;
+  animation: move 0.6s;
+}
+
+@keyframes move{
+  0%, 49.99%{
+      opacity: 0;
+      z-index: 1;
+  }
+  50%, 100%{
+      opacity: 1;
+      z-index: 5;
+  }
+}
+
+.social-icons{
+  margin: 20px 0;
+}
+
+.social-icons a{
+  border: 1px solid #ccc;
+  border-radius: 20%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 3px;
+  width: 40px;
+  height: 40px;
+}
+
+.icon:hover{
+  color: goldenrod;
+  border-color: goldenrod;
+}
+
+.toggle-container{
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  transition: all 0.6s ease-in-out;
+  border-radius: 150px 0 0 100px;
+  z-index: 1000;
+}
+
+.container1.active .toggle-container{
+  transform: translateX(-100%);
+  border-radius: 0 150px 100px 0;
+}
+
+.toggle{
+  
+  height: 100%;
+  background: goldenrod;
+  color: black;
+  position: relative;
+  left: -100%;
+  height: 100%;
+  width: 200%;
+  transform: translateX(0);
+  transition: all 0.6s ease-in-out;
+}
+
+.container1.active .toggle{
+  transform: translateX(50%);
+}
+
+.toggle-panel{
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 30px;
+  text-align: center;
+  top: 0;
+  transform: translateX(0);
+  transition: all 0.6s ease-in-out;
+}
+
+.toggle-left{
+  transform: translateX(-200%);
+}
+
+.container1.active .toggle-left{
+  transform: translateX(0);
+}
+
+.toggle-right{
+  right: 0;
+  transform: translateX(0);
+}
+
+.container1.active .toggle-right{
+  transform: translateX(200%);
+}
+
+.image{
+  width: 400px;
+  height: 300px;
+  padding: 30px;
+}
+.btn2:hover{
+  background: silver;
+  color: black;
+}
+
+/*------contactpage-------*/
+
+
 .page-header-3{
   max-width: 1600px;
   height: 35vh;
@@ -517,6 +736,10 @@ select{
   font-weight: 600;
   color: black;
 }
+
+/*--------cart page------*/
+
+
 #cart table{
   width: 100%;
   border-collapse: collapse;
@@ -566,6 +789,8 @@ select{
   padding-top: 10px;
   margin-right: 15px;
 }
+
+/*-------responsive-------*/
 
 
 @media only screen and (max-width:1000px){
