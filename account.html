@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"
+    integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="style.css" type="text/css" />
+  <title>CLAUDIA ALVES</title>
+</head>
+
+<body>
+  <div class="container">
+    <style>
+      .container {
+        max-width: 1800px;
+        margin: auto;
+        background-color: black;
+        padding: 0px;
+      }
+    </style>
+    <div class="navbar">
+      <div class="logo">
+        <a href="#"><img src="jewelimages/logo3.png" alt="" width="150"></a>
+      </div>
+      <nav>
+        <ul id="MenuItems">
+          <img src="jewelimages/close.png" class="close" onclick="togglemenu()">
+          <li><a href="home.html">Home</a></li>
+          <li><a href="products.html">Shop</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a class="active" href="account.html">Account</a></li>
+          <li><a href="contactus.html">ContactUs</a></li>
+        </ul>
+      </nav>
+      <img src="jewelimages/menu (1).png" class="menu" onclick="togglemenu()">
+      <a href=""><img src="jewelimages/shopping-bag (1).png" width="30px" height="30px"><span>0</span></a>
+    </div>
+  </div>
+  <div class="container1" id="container1">
+    <div class="form-container sign-up">
+        <form>
+            <h1>Create Account</h1>
+            <div class="social-icons">
+                <a href="#" class="icon"><i class="fab fa-google "></i></a>
+                <a href="#" class="icon"><i class="fab fa-facebook"></i></a>
+                <a href="#" class="icon"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="icon"><i class="fab fa-youtube"></i></a>
+            </div>
+            <span>or use your email for registeration</span>
+            <input type="text" placeholder="Name">
+            <input type="email" placeholder="Email">
+            <input type="password" placeholder="Password">
+            <button class="btn2">Sign Up</button>
+        </form>
+    </div>
+    <div class="form-container sign-in">
+      <form>
+          <h1>Sign In</h1>
+          <div class="social-icons">
+              <a href="#" class="icon"><i class="fab fa-google"></i></a>
+              <a href="#" class="icon"><i class="fab fa-facebook"></i></a>
+              <a href="#" class="icon"><i class="fab fa-instagram"></i></a>
+              <a href="#" class="icon"><i class="fab fa-youtube"></i></a>
+          </div>
+          <span>or use your email password</span>
+          <input type="email" placeholder="Email">
+          <input type="password" placeholder="Password">
+          <a href="#">Forget Your Password?</a>
+          <button class="btn2">Sign In</button>
+      </form>
+  </div>
+  <div class="toggle-container">
+      <div class="toggle">
+          <div class="toggle-panel toggle-left">
+              <h1>Welcome Back!</h1>
+              <p>Enter your personal details to use all of site features</p>
+              <button class="btn2" id="login">Sign In</button>
+              <img src="jewelimages/login.png" class="image">
+          </div>
+          <div class="toggle-panel toggle-right">
+            <h1>Hello, Friend!</h1>
+            <p>Register with your personal details to use all of site features</p>
+            <button class="btn2" id="register">Sign Up</button>
+            <img src="jewelimages/login2.png" class="image">
+        </div>
+    </div>
+</div>
+</div>
+
+<script>
+
+  var MenuItems = document.getElementById("MenuItems");
+  
+  const container = document.getElementById('container1');
+  const registerBtn = document.getElementById('register');
+  const loginBtn = document.getElementById('login');
+
+      MenuItems.style.maxHeight = "0px";
+
+      function togglemenu(){
+
+        if(MenuItems.style.maxHeight == "0px")
+        {
+          MenuItems.style.maxHeight = "130px";
+        }
+        else{
+          MenuItems.style.maxHeight = "0px";
+        }
+      }
+
+  registerBtn.addEventListener('click', () => {
+    container.classList.add("active");
+  });
+
+  loginBtn.addEventListener('click', () => {
+   container.classList.remove("active");
+});
+
+</script>
+
+</body>
+
+</html>
