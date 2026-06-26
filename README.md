@@ -332,7 +332,7 @@ http://localhost:5173
 
 **Vaishnavi Misal**
 
-Full Stack Developer
+Full Stack AI Developer
 
 ---
 
