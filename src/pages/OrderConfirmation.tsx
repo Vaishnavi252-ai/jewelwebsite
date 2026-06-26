@@ -14,6 +14,8 @@ export default function OrderConfirmation() {
     queryKey: ['order', orderId],
     queryFn: () => getOrderById(orderId!),
     enabled: !!orderId,
+    staleTime: 0,
+    refetchOnMount: true,
   });
 
   if (isLoading || !order) {
@@ -46,8 +48,22 @@ export default function OrderConfirmation() {
             className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
             <CheckCircle size={40} className="text-white" />
           </motion.div>
-          <h1 style={{ color: '#2B2B2B' }} className="text-3xl font-bold mb-2">Order Confirmed!</h1>
-          <p style={{ color: '#6B6B6B' }} className="text-sm">Thank you for your purchase. Your order has been placed successfully.</p>
+          {(() => {
+            const orderAny = order as any;
+            const isPaid = orderAny.payment_verified === true || orderAny.payment_status === 'paid' || !!orderAny.razorpay_payment_id;
+            return (
+              <>
+                <h1 style={{ color: '#2B2B2B' }} className="text-3xl font-bold mb-2">
+                  {isPaid ? 'Order Confirmed!' : 'Payment Not Completed'}
+                </h1>
+                <p style={{ color: '#6B6B6B' }} className="text-sm">
+                  {isPaid
+                    ? 'Thank you for your purchase. Your order has been placed successfully.'
+                    : 'Your order was created but payment was cancelled/not completed. Please complete payment to confirm your order.'}
+                </p>
+              </>
+            );
+          })()}
           <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #F7EAF0' }} className="inline-block px-4 py-2 rounded-xl mt-4">
             <span style={{ color: '#6B6B6B' }} className="text-xs">Order Number</span>
             <p style={{ color: '#B9375E' }} className="font-bold text-sm">{order.order_number}</p>
@@ -133,7 +149,7 @@ export default function OrderConfirmation() {
               <h3 style={{ color: '#2B2B2B' }} className="font-bold text-sm">Payment Method</h3>
             </div>
             <p style={{ color: '#2B2B2B' }} className="text-sm font-medium capitalize">{order.payment_method?.replace('_', ' ')}</p>
-            <p style={{ color: '#6B6B6B' }} className="text-sm">{order.payment_status === 'paid' ? 'Payment Received' : 'Pending'}</p>
+            <p style={{ color: '#6B6B6B' }} className="text-sm">{(((order as any).payment_verified === true || (order as any).payment_status === 'paid' || !!(order as any).razorpay_payment_id) ? 'Payment Received' : 'Pending')}</p>
           </motion.div>
         </div>
 

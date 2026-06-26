@@ -4,8 +4,11 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Plus, Pencil, Trash2, Search, X, Package, Save, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 import { getProducts, getCategories, createProduct, updateProduct, deleteProduct } from '../services/products';
+import type { Product } from '../types';
 import { useAuth } from '../lib/AuthContext';
 import { METAL_LABELS, LOCAL_IMGS } from '../lib/utils';
+
+type ProductRow = Product;
 
 export default function AdminProducts() {
   const { profile } = useAuth();
@@ -18,7 +21,7 @@ export default function AdminProducts() {
 
   const { data: products = [], isLoading } = useQuery({
     queryKey: ['products', 'all'],
-    queryFn: getProducts,
+    queryFn: () => getProducts(),
   });
 
   const { data: categories = [] } = useQuery({
@@ -49,18 +52,30 @@ export default function AdminProducts() {
     setSaving(true);
     try {
       const formData = new FormData(e.target as HTMLFormElement);
-      const data = {
+      const imagesRaw = (formData.get('images') as string) || '';
+      const images = imagesRaw
+        .split(',')
+        .map(s => s.trim())
+        .filter(Boolean);
+
+      const data: any = {
         title: formData.get('title') as string,
         slug: formData.get('slug') as string,
-        description: formData.get('description') as string,
+        description: (formData.get('description') as string) || null,
         price: parseFloat(formData.get('price') as string),
-        original_price: formData.get('original_price') ? parseFloat(formData.get('original_price') as string) : null,
-        category_id: formData.get('category_id') as string,
+        original_price: formData.get('original_price') ? parseFloat(formData.get('original_price') as string) : undefined,
+        category_slug: formData.get('category_id') as string,
         metal_type: formData.get('metal_type') as string,
-        gemstone: formData.get('gemstone') as string,
-        weight: formData.get('weight') ? parseFloat(formData.get('weight') as string) : null,
-        in_stock: formData.get('in_stock') === 'on',
+        gemstone: (formData.get('gemstone') as string) || undefined,
+        weight: formData.get('weight') ? parseFloat(formData.get('weight') as string) : undefined,
+        stock_quantity: (() => {
+          // UI checkbox means "in stock"; map to stock_quantity.
+          const inStock = formData.get('in_stock') === 'on';
+          return inStock ? 1 : 0;
+        })(),
+        images,
       };
+
 
       if (editingProduct?.id) {
         await updateProduct(editingProduct.id, data);
@@ -72,8 +87,9 @@ export default function AdminProducts() {
       queryClient.invalidateQueries({ queryKey: ['products', 'all'] });
       setModalOpen(false);
       setEditingProduct(null);
-    } catch (err) {
-      toast.error('Failed to save product');
+    } catch (err: any) {
+      const msg = err?.message || err?.error_description || err?.details || 'Failed to save product';
+      toast.error(msg);
     } finally {
       setSaving(false);
     }
@@ -157,7 +173,7 @@ export default function AdminProducts() {
                             </div>
                           </div>
                         </td>
-                        <td style={{ color: '#2B2B2B' }} className="py-4 px-4 text-sm">{product.category_name}</td>
+                        <td style={{ color: '#2B2B2B' }} className="py-4 px-4 text-sm">{(product as any).category_name || product.category_slug}</td>
                         <td className="py-4 px-4">
                           <span style={{ color: '#B9375E' }} className="font-semibold text-sm">₹{product.price?.toLocaleString('en-IN')}</span>
                           {product.original_price && product.original_price > product.price && (
@@ -167,10 +183,11 @@ export default function AdminProducts() {
                           )}
                         </td>
                         <td className="py-4 px-4">
-                          <span style={{ backgroundColor: product.in_stock ? '#22C55E15' : '#EF444415', color: product.in_stock ? '#22C55E' : '#EF4444' }}
+                      <span style={{ backgroundColor: product.stock_quantity > 0 ? '#22C55E15' : '#EF444415', color: product.stock_quantity > 0 ? '#22C55E' : '#EF4444' }}
                             className="px-2 py-1 rounded-full text-xs font-medium">
-                            {product.in_stock ? 'In Stock' : 'Out of Stock'}
+                            {product.stock_quantity > 0 ? 'In Stock' : 'Out of Stock'}
                           </span>
+
                         </td>
                         <td className="py-4 px-4 text-right">
                           <button onClick={() => openEditModal(product)}
@@ -252,11 +269,13 @@ export default function AdminProducts() {
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label style={{ color: '#2B2B2B' }} className="block text-sm font-medium mb-1.5">Category *</label>
-                    <select name="category_id" required defaultValue={editingProduct?.category_id || ''}
+                    <select name="category_id" required defaultValue={editingProduct?.category_slug || ''}
+
+
                       style={{ backgroundColor: '#FFF8FA', border: '1px solid #F7EAF0', color: '#2B2B2B' }}
                       className="w-full px-3 py-2.5 rounded-xl text-sm outline-none focus:border-[#B9375E] transition-colors">
                       <option value="">Select category</option>
-                      {categories.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
+                      {categories.map(c => <option key={c.id} value={c.slug}>{c.name}</option>)}
                     </select>
                   </div>
                   <div>
@@ -282,6 +301,20 @@ export default function AdminProducts() {
                       style={{ backgroundColor: '#FFF8FA', border: '1px solid #F7EAF0', color: '#2B2B2B' }}
                       className="w-full px-3 py-2.5 rounded-xl text-sm outline-none focus:border-[#B9375E] transition-colors" />
                   </div>
+                </div>
+
+                <div>
+                  <label style={{ color: '#2B2B2B' }} className="block text-sm font-medium mb-1.5">
+                    Images (URLs)
+                  </label>
+                  <textarea
+                    name="images"
+                    rows={2}
+                    placeholder="Paste image URLs separated by commas"
+                    defaultValue={(editingProduct?.images || []).join(', ')}
+                    style={{ backgroundColor: '#FFF8FA', border: '1px solid #F7EAF0', color: '#2B2B2B', resize: 'none' }}
+                    className="w-full px-3 py-2.5 rounded-xl text-sm outline-none focus:border-[#B9375E] transition-colors"
+                  />
                 </div>
                 <label className="flex items-center gap-2 cursor-pointer">
                   <input name="in_stock" type="checkbox" defaultChecked={editingProduct?.in_stock ?? true} className="accent-[#B9375E]" />

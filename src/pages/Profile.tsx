@@ -12,7 +12,8 @@ export default function Profile() {
   const [form, setForm] = useState({
     full_name: profile?.full_name || '',
     phone: profile?.phone || '',
-    address: profile?.address || '',
+    address: profile?.street || '',
+
     city: profile?.city || '',
     state: profile?.state || '',
     postal_code: profile?.postal_code || '',
@@ -36,14 +37,15 @@ export default function Profile() {
     try {
       const { error } = await supabase
         .from('user_profiles')
-        .update({
+          .update({
           full_name: form.full_name,
           phone: form.phone,
-          address: form.address,
+          street: form.address,
           city: form.city,
           state: form.state,
           postal_code: form.postal_code,
         })
+
         .eq('id', user!.id);
 
       if (error) throw error;

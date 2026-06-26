@@ -17,16 +17,40 @@ export default function AdminOrders() {
     queryFn: getAllOrders,
   });
 
+  const notifyOrderStatus = async (orderId: string, newStatus: string) => {
+    try {
+      await fetch("http://localhost:5000/notify-order-status", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ orderId, newStatus }),
+      });
+    } catch {
+      // ignore email errors
+    }
+  };
+
   const updateStatusMutation = useMutation({
     mutationFn: ({ id, status }: { id: string; status: string }) => updateOrderStatus(id, status as any),
-    onSuccess: () => {
+    onSuccess: (_data, variables) => {
       queryClient.invalidateQueries({ queryKey: ['admin-orders'] });
       toast.success('Order status updated');
+
+      // Notify backend to send email about status update
+      // (don't await inside React Query callback)
+      if (variables?.id && variables?.status) {
+        void notifyOrderStatus(variables.id, variables.status);
+      }
+
+      // done
     },
     onError: () => toast.error('Failed to update status'),
   });
 
   const filtered = orders.filter(o => {
+    // Only show orders that were actually paid (paid) to admin.
+    // Prevents cancelled/unpaid Razorpay orders from showing up.
+    if (o.payment_status !== 'paid') return false;
+
     if (statusFilter && o.status !== statusFilter) return false;
     if (search) {
       const s = search.toLowerCase();

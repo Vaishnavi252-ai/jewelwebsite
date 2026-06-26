@@ -11,9 +11,9 @@ export default function AboutUs() {
   ];
 
   const team = [
-    { name: 'Priya Sharma', role: 'Founder & Creative Director', img: LOCAL_IMGS[0] },
-    { name: 'Raj Malhotra', role: 'Master Artisan', img: LOCAL_IMGS[1] },
-    { name: 'Ananya Patel', role: 'Design Lead', img: LOCAL_IMGS[2] },
+    { name: 'Vaishnavi Misal', role: 'Founder & Creative Director', img: 'https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/default-profile-picture-grey-female-icon.png' },
+    { name: 'Smith Jadhav', role: 'Master Artisan', img: 'https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/default-profile-picture-grey-male-icon.png' },
+    { name: 'Ananya Patel', role: 'Design Lead', img: 'https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/default-profile-picture-grey-female-icon.png' },
   ];
 
   const stats = [
@@ -34,7 +34,7 @@ export default function AboutUs() {
             </div>
             <h1 style={{ color: '#2B2B2B' }} className="text-4xl lg:text-5xl font-bold mb-6">Our Story</h1>
             <p style={{ color: '#6B6B6B' }} className="text-lg leading-relaxed">
-              Founded in 2010, VILAVIE jewel began as a small family workshop with a dream to bring luxury jewelry to every Indian home. Today, we've grown into a beloved brand while staying true to our roots of exceptional craftsmanship and personal service.
+              Founded in 2026, VILAVIE jewel began as a small family workshop with a dream to bring luxury jewelry to every Indian home. Today, we've grown into a beloved brand while staying true to our roots of exceptional craftsmanship and personal service.
             </p>
           </motion.div>
         </div>

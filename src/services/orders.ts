@@ -1,7 +1,6 @@
 import { supabase } from '../lib/supabase';
 import { Order, CartItem } from '../types';
 import { generateOrderNumber } from '../lib/utils';
-import { clearCart } from './cart';
 
 interface PlaceOrderInput {
   userId: string;
@@ -13,6 +12,7 @@ interface PlaceOrderInput {
   shippingPostalCode: string;
   shippingCountry: string;
   cartItems: CartItem[];
+  // paymentMethod values can be 'card' | 'upi' | 'cod'
   paymentMethod: string;
 }
 
@@ -38,7 +38,7 @@ export async function placeOrder(input: PlaceOrderInput): Promise<Order> {
       shipping_cost: shippingCost,
       tax_amount: taxAmount,
       total_amount: totalAmount,
-      payment_status: 'paid',
+      payment_status: 'pending',
       payment_method: input.paymentMethod,
       status: 'processing',
     })
@@ -60,7 +60,7 @@ export async function placeOrder(input: PlaceOrderInput): Promise<Order> {
   const { error: itemsError } = await supabase.from('order_items').insert(orderItems);
   if (itemsError) throw itemsError;
 
-  await clearCart(input.userId);
+  // Cart will be cleared only after payment succeeds (handled by Razorpay backend)
   return order as Order;
 }
 

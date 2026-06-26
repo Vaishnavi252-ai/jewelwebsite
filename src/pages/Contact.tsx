@@ -27,8 +27,8 @@ export default function Contact() {
   };
 
   const contactInfo = [
-    { icon: Mail, label: 'Email', value: 'hello@vilaviejewel.com', href: 'mailto:hello@vilaviejewel.com' },
-    { icon: Phone, label: 'Phone', value: '+91 98765 43210', href: 'tel:+919876543210' },
+    { icon: Mail, label: 'Email', value: 'vilavie.jewels@gmail.com', href: 'mailto:vilavie.jewels@gmail.com' },
+    { icon: Phone, label: 'Phone', value: '+91 99999 99999', href: 'tel:+91 99999 99999' },
     { icon: MapPin, label: 'Address', value: '123 Jewelry Lane, Mumbai, MH 400001', href: '#' },
     { icon: Clock, label: 'Hours', value: 'Mon-Sat: 10AM - 8PM', href: '#' },
   ];

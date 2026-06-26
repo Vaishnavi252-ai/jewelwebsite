@@ -1,0 +1,5 @@
+ALTER TABLE orders ADD COLUMN payment_verified BOOLEAN DEFAULT FALSE;
+
+
+ALTER TABLE orders ADD COLUMN paid_at TIMESTAMPTZ;
+

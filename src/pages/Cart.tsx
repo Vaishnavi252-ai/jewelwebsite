@@ -49,7 +49,13 @@ export default function Cart() {
     }
   };
 
-  const subtotal = items.reduce((s, i) => s + i.price * i.quantity, 0);
+  const subtotal = items.reduce((s, i) => {
+    const price = Number((i as any).price ?? (i as any).unit_price ?? 0) || 0;
+    const qty = Number((i as any).quantity) || 0;
+    return s + price * qty;
+  }, 0);
+
+
   const shipping = subtotal >= 5000 ? 0 : 99;
   const total = subtotal + shipping;
 
@@ -108,18 +114,25 @@ export default function Cart() {
             {/* Items */}
             <div className="lg:col-span-2 space-y-4">
               {items.map(item => {
-                const img = item.images?.[0] || LOCAL_IMGS[item.id.charCodeAt(0) % LOCAL_IMGS.length];
+                const img =
+                  item.product?.images?.[0] ||
+                  LOCAL_IMGS[
+                    (item.product_id || item.id).charCodeAt(0) % LOCAL_IMGS.length
+                  ];
                 return (
                   <motion.div key={item.id} layout
                     style={{ backgroundColor: '#FFFFFF', border: '1px solid #F7EAF0' }}
                     className="flex gap-4 p-4 rounded-2xl">
                     <div className="w-24 h-24 rounded-xl overflow-hidden shrink-0" style={{ backgroundColor: '#FFF8FA' }}>
-                      <img src={img} alt={item.title} className="w-full h-full object-cover" />
+                      <img src={img} alt={item.product?.title ?? (item as any).title ?? 'Cart item'} className="w-full h-full object-cover" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h3 style={{ color: '#2B2B2B' }} className="font-semibold text-sm mb-1 truncate">{item.title}</h3>
-                      <p style={{ color: '#6B6B6B' }} className="text-xs mb-2">{item.metal_type} | {item.gemstone || 'No gemstone'}</p>
-                      <p style={{ color: '#B9375E' }} className="font-bold text-sm">₹{item.price.toLocaleString('en-IN')}</p>
+                      <h3 style={{ color: '#2B2B2B' }} className="font-semibold text-sm mb-1 truncate">{item.product?.title ?? (item as any).title}</h3>
+                      <p style={{ color: '#6B6B6B' }} className="text-xs mb-2">{(item.product?.metal_type ?? (item as any).metal_type) ?? ''} | {(item.product?.gemstone ?? (item as any).gemstone) || 'No gemstone'}</p>
+                      <p style={{ color: '#B9375E' }} className="font-bold text-sm">₹{(Number((item as any).price ?? (item as any).unit_price ?? 0) || 0).toLocaleString('en-IN')}</p>
+
+
+
                     </div>
                     <div className="flex flex-col items-end justify-between">
                       <button onClick={() => handleRemove(item.id)} style={{ color: '#6B6B6B' }}
