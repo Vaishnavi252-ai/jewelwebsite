@@ -12,7 +12,10 @@ const app = express();
 // Allow frontend origin to call backend endpoints
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: [
+      "http://localhost:5173",
+      "https://jewelwebsite.vercel.app",
+    ],
     credentials: true,
   })
 );
@@ -130,6 +133,8 @@ app.post("/verify-payment", async (req, res) => {
   }
 });
 
-app.listen(5000, () => {
-  console.log("Backend running");
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log(`Backend running on port ${PORT}`);
 });
