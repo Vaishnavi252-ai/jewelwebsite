@@ -14,7 +14,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://jewelwebsite.vercel.app",
+      process.env.FRONTEND_URL,
     ],
     credentials: true,
   })

@@ -1,0 +1,17 @@
+{
+  "name": "jewel-backend",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "nodemailer": "^7.0.5",
+    "razorpay": "^2.9.6",
+    "@supabase/supabase-js": "^2.57.4"
+  }
+}
