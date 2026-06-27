@@ -5,21 +5,33 @@ type CreateRazorpayOrderInput = {
   notes?: Record<string, unknown>;
 };
 
-export const createRazorpayOrder = async (input: CreateRazorpayOrderInput) => {
-  const response = await fetch("http://localhost:5000/create-order", {
+const API_URL = "https://jewelwebsite.onrender.com";
+
+export const createRazorpayOrder = async (
+  input: CreateRazorpayOrderInput
+) => {
+  const response = await fetch(`${API_URL}/create-order`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    // backend currently only expects `amount`
-    body: JSON.stringify({ amount: input.amountPaise, currency: input.currency, notes: input.notes, localOrderId: input.localOrderId }),
+    body: JSON.stringify({
+      amount: input.amountPaise,
+      currency: input.currency,
+      notes: input.notes,
+      localOrderId: input.localOrderId,
+    }),
   });
 
-  // Backend returns Razorpay order object with `id`.
-  // Checkout.tsx expects `{ razorpayOrderId }`.
-  const data = (await response.json()) as { id: string; [key: string]: unknown };
-  return { razorpayOrderId: data.id, ...data };
+  const data = (await response.json()) as {
+    id: string;
+    [key: string]: unknown;
+  };
 
+  return {
+    razorpayOrderId: data.id,
+    ...data,
+  };
 };
 
 type VerifyRazorpayPaymentInput = {
@@ -30,8 +42,10 @@ type VerifyRazorpayPaymentInput = {
   paymentMethod: string;
 };
 
-export const verifyRazorpayPayment = async (input: VerifyRazorpayPaymentInput) => {
-  const response = await fetch("http://localhost:5000/verify-payment", {
+export const verifyRazorpayPayment = async (
+  input: VerifyRazorpayPaymentInput
+) => {
+  const response = await fetch(`${API_URL}/verify-payment`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -44,9 +58,14 @@ export const verifyRazorpayPayment = async (input: VerifyRazorpayPaymentInput) =
     }),
   });
 
-  const data = (await response.json()) as { verified: boolean; error?: string };
+  const data = (await response.json()) as {
+    verified: boolean;
+    error?: string;
+  };
+
   if (!data.verified) {
     throw new Error(data.error || "Invalid Razorpay payment");
   }
+
   return true;
 };

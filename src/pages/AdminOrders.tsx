@@ -6,6 +6,7 @@ import { toast } from 'sonner';
 import { getAllOrders, updateOrderStatus } from '../services/orders';
 import { LOCAL_IMGS } from '../lib/utils';
 
+
 export default function AdminOrders() {
   const queryClient = useQueryClient();
   const [search, setSearch] = useState('');
@@ -17,17 +18,19 @@ export default function AdminOrders() {
     queryFn: getAllOrders,
   });
 
-  const notifyOrderStatus = async (orderId: string, newStatus: string) => {
-    try {
-      await fetch("http://localhost:5000/notify-order-status", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ orderId, newStatus }),
-      });
-    } catch {
-      // ignore email errors
-    }
-  };
+  const API_URL = import.meta.env.VITE_API_URL;
+
+const notifyOrderStatus = async (orderId: string, newStatus: string) => {
+  try {
+    await fetch(`${API_URL}/notify-order-status`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ orderId, newStatus }),
+    });
+  } catch {
+    // ignore email errors
+  }
+};
 
   const updateStatusMutation = useMutation({
     mutationFn: ({ id, status }: { id: string; status: string }) => updateOrderStatus(id, status as any),
