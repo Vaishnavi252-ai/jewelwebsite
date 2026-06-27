@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { Heart, ShoppingBag, Truck, Shield, RotateCcw, ChevronRight, Star, Minus, Plus, Share2 } from 'lucide-react';
 import { toast } from 'sonner';
 import { getProductBySlug, getProducts } from '../services/products';
@@ -36,6 +36,8 @@ export default function ProductDetail() {
     enabled: !!user && !!product,
   });
 
+  const queryClient = useQueryClient();
+
   const related = allProducts.filter(p => p.category_slug === product?.category_slug && p.id !== product?.id).slice(0, 4);
 
   const handleCart = async () => {
@@ -45,8 +47,20 @@ export default function ProductDetail() {
     try {
       await addToCart(user.id, product.id, product.price, qty);
       toast.success('Added to cart');
-    } catch (e) {
-      toast.error('Failed to add to cart');
+
+      queryClient.invalidateQueries({ queryKey: ['cart', user.id] });
+      queryClient.invalidateQueries({ queryKey: ['cart'] });
+      // (Navbar/Cart components listen via React Query; invalidate ensures fresh fetch)
+
+
+
+    } catch (e: any) {
+      const msg = e?.message || e?.error_description || e?.toString?.() || 'Unknown error';
+      // Show the real error for debugging (useful especially on mobile/responsive reports)
+      toast.error(`Failed to add to cart: ${msg}`);
+      // eslint-disable-next-line no-console
+      console.error('addToCart failed:', e);
+
     } finally {
       setAddingCart(false);
     }
@@ -131,7 +145,8 @@ export default function ProductDetail() {
           <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.4 }} className="flex flex-col">
             <div className="flex items-start justify-between gap-4 mb-4">
               <div>
-                <p style={{ color: '#B9375E' }} className="text-xs font-semibold uppercase tracking-wider mb-2">{product.category_name}</p>
+                <p style={{ color: '#B9375E' }} className="text-xs font-semibold uppercase tracking-wider mb-2">{(product as any).category_name}</p>
+
                 <h1 style={{ color: '#2B2B2B' }} className="text-3xl lg:text-4xl font-bold">{product.title}</h1>
               </div>
               <button onClick={handleWishlist} style={{ backgroundColor: '#FFF8FA', border: '1px solid #F7EAF0' }}
@@ -182,11 +197,24 @@ export default function ProductDetail() {
                   <p style={{ color: '#2B2B2B' }} className="font-semibold text-sm">{product.weight}g</p>
                 </div>
               )}
-              {product.in_stock && (
+              {typeof (product as any).in_stock !== 'undefined' && (
+
+
+
                 <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #F7EAF0' }} className="p-4 rounded-xl">
                   <p style={{ color: '#6B6B6B' }} className="text-xs mb-1">Availability</p>
-                  <p style={{ color: product.in_stock ? '#2B2B2B' : '#B9375E' }} className="font-semibold text-sm">{product.in_stock ? 'In Stock' : 'Out of Stock'}</p>
+                  {(() => {
+                    const inStockVal = (product as any).in_stock;
+                    const stockQty = (product as any).stock_quantity;
+                    const isInStock = typeof stockQty === 'number' ? stockQty > 0 : inStockVal === true;
+                    return (
+                      <p style={{ color: isInStock ? '#2B2B2B' : '#B9375E' }} className="font-semibold text-sm">
+                        {isInStock ? 'In Stock' : 'Out of Stock'}
+                      </p>
+                    );
+                  })()}
                 </div>
+
               )}
             </div>
 
@@ -202,8 +230,11 @@ export default function ProductDetail() {
 
             {/* Actions */}
             <div className="flex gap-4 mb-8">
-              <button onClick={handleCart} disabled={addingCart || !product.in_stock}
+              <button
+                onClick={handleCart}
+                disabled={addingCart || ((product as any).stock_quantity != null ? (product as any).stock_quantity === 0 : (product as any).in_stock === false)}
                 style={{ background: 'linear-gradient(135deg, #B9375E, #D4AF37)', color: '#fff' }}
+
                 className="flex-1 py-4 rounded-xl font-semibold text-sm hover:opacity-90 transition-opacity disabled:opacity-50 flex items-center justify-center gap-2">
                 <ShoppingBag size={18} /> {addingCart ? 'Adding...' : 'Add to Cart'}
               </button>

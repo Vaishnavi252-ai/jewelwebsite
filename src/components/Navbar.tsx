@@ -6,6 +6,8 @@ import { useAuth } from '../lib/AuthContext';
 import { useQuery } from '@tanstack/react-query';
 import { getCartItems } from '../services/cart';
 
+
+
 export default function Navbar() {
   const { user, profile, signOut } = useAuth();
   const navigate = useNavigate();
@@ -23,6 +25,8 @@ export default function Navbar() {
     enabled: !!user,
   });
   const cartCount = cartItems?.reduce((s, i) => s + i.quantity, 0) || 0;
+
+
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 20);

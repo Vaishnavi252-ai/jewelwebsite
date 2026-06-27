@@ -10,6 +10,17 @@ export async function getCartItems(userId: string): Promise<CartItem[]> {
   return (data as CartItem[]) || [];
 }
 
+export async function countCartItems(userId: string): Promise<number> {
+  const { count, error } = await supabase
+    .from('cart_items')
+    .select('id', { count: 'exact', head: true })
+    .eq('user_id', userId);
+
+  if (error) throw error;
+  return count ?? 0;
+}
+
+
 export async function addToCart(userId: string, productId: string, unitPrice: number, qty = 1): Promise<CartItem> {
   const { data: existing } = await supabase
     .from('cart_items')

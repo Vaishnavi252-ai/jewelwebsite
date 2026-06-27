@@ -50,16 +50,29 @@ export default function OrderConfirmation() {
           </motion.div>
           {(() => {
             const orderAny = order as any;
-            const isPaid = orderAny.payment_verified === true || orderAny.payment_status === 'paid' || !!orderAny.razorpay_payment_id;
+
+            const paymentStatus = orderAny.payment_status;
+            const paymentVerified = orderAny.payment_verified === true;
+            const hasRazorpayIds = !!(orderAny.razorpay_order_id || orderAny.razorpay_payment_id);
+
+            // Only treat it as paid when Supabase payment fields say so.
+            const isPaid = paymentVerified || paymentStatus === 'paid';
+
+            // If Razorpay IDs exist and we aren't marked paid yet,
+            // keep showing a neutral state instead of failure.
+            const isVerifying = !isPaid && hasRazorpayIds;
+
             return (
               <>
                 <h1 style={{ color: '#2B2B2B' }} className="text-3xl font-bold mb-2">
-                  {isPaid ? 'Order Confirmed!' : 'Payment Not Completed'}
+                  {isPaid ? 'Order Confirmed!' : isVerifying ? 'Verifying payment…' : 'Payment Not Completed'}
                 </h1>
                 <p style={{ color: '#6B6B6B' }} className="text-sm">
                   {isPaid
                     ? 'Thank you for your purchase. Your order has been placed successfully.'
-                    : 'Your order was created but payment was cancelled/not completed. Please complete payment to confirm your order.'}
+                    : isVerifying
+                      ? 'Please wait while we confirm your payment.'
+                      : 'Your order was created but payment was cancelled/not completed. Please complete payment to confirm your order.'}
                 </p>
               </>
             );

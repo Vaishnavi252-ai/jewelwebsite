@@ -33,6 +33,7 @@ export default function ProductCard({ product, onAuthRequired }: Props) {
     setAdding(true);
     try {
       await addToCart(user.id, product.id, product.price);
+      qc.invalidateQueries({ queryKey: ['cart', user.id] });
       qc.invalidateQueries({ queryKey: ['cart'] });
       toast.success(`${product.title} added to cart`);
     } catch { toast.error('Failed to add to cart'); }
